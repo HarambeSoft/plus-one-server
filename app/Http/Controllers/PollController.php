@@ -4,27 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-
-use App\Classes\QueryValidator;
 use DB;
+
+use App\Poll;
+use App\PollOptions;
 
 
 class PollController extends Controller
 {
-    public function index($id) {
-        $polls = DB::select('SELECT * FROM Poll WHERE Poll.id=?', [$id]);
-        list($success, $result) = QueryValidator::notEqToOne($polls);
-        
-        if ($success) {
-            $options = DB::select('SELECT * FROM PollOption WHERE
-                                                  PollOption.pollID=?', [$id]);
-            $result->options = $options;
-        }
-
-        return response()->json($result);
+    
+    public function index() {
+        $all_polls = Poll::all();
+        return response()->json($all_polls);
     }
-
-    public function comments($id) {
-
+    
+    public function show($id) {
+        $poll = Poll::find($id);
+        return response()->json($poll);
+    }
+    
+    public function options($id) {
+        $options = PollOptions::find($id);
+        return response()->json($options);
     }
 }
