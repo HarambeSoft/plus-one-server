@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PollOptions extends Model
+class Comment extends Model
 {
-    protected $table = "poll_options";
+    protected $table = "comment";
     public $timestamps = false;
 }

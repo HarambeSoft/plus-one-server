@@ -1,7 +1,7 @@
 /*
-    Tables       : TableName (always singular)
-    Keys         : columnName
-    Foreign keys : tableNameColumnName
+    Tables       : table_name (always singular)
+    Keys         : column_name
+    Foreign keys : table_name_column_ame
 */
 
 CREATE TABLE `user` (
@@ -31,6 +31,7 @@ CREATE TABLE `user` (
 
 CREATE TABLE `poll` (
     `user_id` INT NOT NULL,
+    `category_id` INT NOT NULL,
 
     `id` INT NOT NULL AUTO_INCREMENT,
     `question` VARCHAR(255) NOT NULL,
@@ -46,7 +47,8 @@ CREATE TABLE `poll` (
 
 
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `user`(id)
+    FOREIGN KEY (`user_id`) REFERENCES `user`(id),
+    FOREIGN KEY (`category_id`) REFERENCES `category`(id)
 );
 
 CREATE TABLE `poll_option` (
@@ -58,6 +60,13 @@ CREATE TABLE `poll_option` (
 
     PRIMARY KEY (`id`),
     FOREIGN KEY (`poll_id`) REFERENCES `poll`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE `category` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `comment` (
