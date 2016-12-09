@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+
 use DB;
 
 use App\Poll;
@@ -22,6 +23,20 @@ class PollController extends Controller
     public function show($id) {
         $poll = Poll::find($id);
         return response()->json($poll);
+    }
+    
+    public function store(Request $request) {
+        extract(Poll::isValid($request->all()));
+        
+        if (!$is_valid)
+            return response()->json(['error' => true,
+                                      'message' => $validation_message]);
+
+        $poll = new Poll($request->all());
+        $poll->save();
+        
+        return response()->json(['error' => false,
+                           'message' => 'Poll succesfully created.']);
     }
     
     public function options($id) {

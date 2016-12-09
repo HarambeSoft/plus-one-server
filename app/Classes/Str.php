@@ -16,5 +16,3 @@ class Str {
         return (substr($haystack, -$length) === $needle);
     }
 }
-
-?>

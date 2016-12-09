@@ -24,5 +24,3 @@ class Path {
         return $path;
     }
 }
-
-?>

@@ -18,7 +18,6 @@ Route::group(['prefix' => 'v1', /*'middleware' => 'auth:api'*/], function () {
     Route::resource('user',  'UserController');
     Route::resource('poll',  'PollController'); 
 
-
     Route::get('user/{id}/polls', 'UserController@polls');                      
     Route::get('user/{id}/notifications', 'UserController@notifications');
 
