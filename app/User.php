@@ -16,7 +16,7 @@ class User extends Authenticatable
     protected $table = "user";
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'api_token',
     ];
     
     public static $validation_rules = [

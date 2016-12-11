@@ -22,11 +22,12 @@ class PollController extends Controller
     
     public function show($id) {
         $poll = Poll::find($id);
+        $poll->options = PollOption::where('poll_id', $id)->get();
         return response()->json($poll);
     }
     
     public function store(Request $request) {
-        extract(Poll::isValid($request->all()));
+        extract(Poll::isValid($request->all())); // $is_valid, $validation_message
         
         if (!$is_valid)
             return response()->json(['error' => true,
@@ -45,7 +46,7 @@ class PollController extends Controller
     }
     
     public function comments($id) {
-        $poll_comments_id = PollComment::where('poll_id', $id)->pluck('id');
+        $poll_comments_id = PollComment::where('poll_id', $id)->pluck('comment_id');
         $comments = Comment::whereIn('id', $poll_comments_id)->get();
         return response()->json($comments);
     }

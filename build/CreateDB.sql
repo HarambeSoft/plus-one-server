@@ -12,6 +12,8 @@ CREATE TABLE `user` (
     `email` VARCHAR(64) NOT NULL,
     `xp` INT NOT NULL DEFAULT 0,
     `create_date` DATETIME NOT NULL DEFAULT NOW(),
+    
+    `api_token` VARCHAR(60),
 
     /* FIRST-ORDER INFO */
     `fullname` VARCHAR(64),
@@ -25,7 +27,8 @@ CREATE TABLE `user` (
     `profession` VARCHAR(64),
     /* TODO: ADD ADDITIONAL INFO */
 
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE (`api_token`)
 );
 
 

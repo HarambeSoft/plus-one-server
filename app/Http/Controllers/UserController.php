@@ -7,12 +7,18 @@ use App\Http\Requests;
 
 use DB;
 use Hash;
+use Auth;
+use Illuminate\Support\Str;
 
 use App\User;
 use App\Poll;
 
 class UserController extends Controller
 {
+    function __construct() {
+        $this->middleware('auth:api', ['except' => ['token', 'store']]);
+    } 
+    
     public function index() {
         $all_users = User::all();
         return response()->json($all_users);
@@ -34,11 +40,23 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->password = Hash::make($request->input('password'));
         $user->email = $request->input('email');
+        $user->api_token = Str::quickRandom(60); //FIXME: make it unique
         
         $user->save();
         
         return response()->json(['error' => false,
                                    'message' => 'User succesfully created.']);
+    }
+
+    public function token(Request $request) {
+        if(Auth::validate($request->all())) {
+            $token = User::where('name', $request->name)->first()->api_token;
+            return response()->json(['error' => false, 
+                                      'token' => $token
+            ]);
+        }
+        return response()->json(['error' => true,
+                                  'message' => 'Wrong credentials.']);
     }
 
     public function polls($id) {

@@ -15,19 +15,31 @@ use Illuminate\Http\Request;
 
 // TODO: add auth middleware
 Route::group(['prefix' => 'v1', /*'middleware' => 'auth:api'*/], function () {
-    Route::resource('user',  'UserController');
-    Route::resource('poll',  'PollController'); 
+    Route::resource('user',    'UserController');
+    Route::resource('poll',    'PollController'); 
+    Route::resource('comment', 'CommentController');
 
+    Route::post('token', 'UserController@token');
+
+    // USERS
     Route::get('user/{id}/polls', 'UserController@polls');                      
     Route::get('user/{id}/notifications', 'UserController@notifications');
 
+    // POLLS
     Route::get('poll/{id}/comments',  'PollController@comments');
     Route::get('poll/{id}/options',   'PollController@options');
     Route::get('poll/globals',        'PollController@globals');
     
-    Route::get('option/{option_id}',            'PollOptionController@option');
-    Route::get('option/{option_id}/comments',   'PollOptionController@comments');
+    // OPTIONS
+    Route::get('option/{option_id}', 'PollOptionController@option');
+    Route::get('option/{option_id}/comments', 'PollOptionController@comments');
 
-    Route::get('poll/option/{id}',          'PollOptionController@info');
-    Route::get('poll/option/{id}/comments', 'PollOptionController@comments');
+    
+    // COMMENTS
+    Route::get('comment/{id}/upvote', 'CommentController@upvote');
+    Route::get('comment/{id}/downvote', 'CommentController@downvote');
+    
+    Route::post('poll/{id}/comment', 'CommentController@commentPoll');
+    Route::post('option/{id}/comment', 'CommentController@commentOption');
+    
 });
