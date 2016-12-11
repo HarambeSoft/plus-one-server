@@ -50,9 +50,10 @@ class UserController extends Controller
 
     public function token(Request $request) {
         if(Auth::validate($request->all())) {
-            $token = User::where('name', $request->name)->first()->api_token;
+            $user = User::where('name', $request->name)->first();
             return response()->json(['error' => false, 
-                                      'token' => $token
+                                      'api_token' => $user->api_token,
+                                      'user' => $user
             ]);
         }
         return response()->json(['error' => true,
