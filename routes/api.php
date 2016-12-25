@@ -18,6 +18,7 @@ Route::group(['prefix' => 'v1', /*'middleware' => 'auth:api'*/], function () {
     Route::resource('user',    'UserController');
     Route::resource('poll',    'PollController'); 
     Route::resource('comment', 'CommentController');
+    Route::resource('category', 'CategoryController');
 
     Route::post('token', 'UserController@token');
 
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'v1', /*'middleware' => 'auth:api'*/], function () {
     // OPTIONS
     Route::get('option/{option_id}', 'PollOptionController@option');
     Route::get('option/{option_id}/comments', 'PollOptionController@comments');
+    Route::post('poll/{poll_id}/options', 'PollOptionController@store');
 
     
     // COMMENTS

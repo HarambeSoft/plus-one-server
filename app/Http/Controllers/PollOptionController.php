@@ -12,6 +12,20 @@ use App\Comment;
 
 class PollOptionController extends Controller
 {
+
+    public function store($poll_id, Request $request) {
+        
+        foreach ($request->all() as $item) {
+            $poll_option = new PollOption;
+            $poll_option->poll_id = $poll_id;
+            $poll_option->content = $item['content'];
+            
+            if (!$poll_option->save())
+                return self::result(true, 'Error while adding option.');
+        }
+        return self::result(false, 'Option added successfully.');
+    }
+
     public function option($id) {
         $option = PollOption::find($id);
         return response()->json($option);

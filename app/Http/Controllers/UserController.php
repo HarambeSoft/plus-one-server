@@ -33,8 +33,7 @@ class UserController extends Controller
         extract(User::isValid($request->all()));
         
         if (!$is_valid)
-            return response()->json(['error' => true,
-                                      'message' => $validation_message]);
+            return self::result(true, $validation_message);
     
         $user = new User;
         $user->name = $request->input('name');
@@ -44,8 +43,23 @@ class UserController extends Controller
         
         $user->save();
         
-        return response()->json(['error' => false,
-                                   'message' => 'User succesfully created.']);
+        return self::result(false, 'User succesfully created.');
+    }
+    
+    public function update(Request $request, $id) {
+        $user = User::find($id);
+
+        $user->email = $request->email;
+        $user->fullname = $request->fullname;
+        $user->country = $request->country;
+        $user->city = $request->city;
+        $user->profession = $request->profession;
+        $user->gender = $request->gender;
+        
+        if($user->save())
+            return self::result(false, 'Update successfull.');
+        else
+            return self::result(true, 'Something went wrong');
     }
 
     public function token(Request $request) {
@@ -56,8 +70,7 @@ class UserController extends Controller
                                       'user' => $user
             ]);
         }
-        return response()->json(['error' => true,
-                                  'message' => 'Wrong credentials.']);
+        return self::result(true, 'Wrong credentials.');
     }
 
     public function polls($id) {

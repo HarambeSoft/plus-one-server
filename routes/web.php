@@ -7,8 +7,12 @@ Route::get('/', function () {
     return view('app');
 });
 
-Route::get('/test', function () {
-    echo AuthManager::login('newuser', '12345qwert');
+Route::get('/notify/{name}', function ($name) {
+    echo Firebase::sendNotificationToUser($name, "AHAAAA", "NABER?");
+});
+
+Route::get('/fdb', function () {
+    echo json_encode(Firebase::findNearUsers(39.7862387,30.5122116, 100));
 });
 
 
