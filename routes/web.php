@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/notify/{name}', function ($name) {
-    echo Firebase::sendNotificationToUser($name, "AHAAAA", "NABER?");
+    echo Firebase::sendNotificationToUser($name, "Foo", "barat", ['poll_id' => 110, 'foo' => 'bar']);
 });
 
 Route::get('/fdb', function () {

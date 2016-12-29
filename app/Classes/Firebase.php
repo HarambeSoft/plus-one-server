@@ -39,6 +39,7 @@ class Firebase {
     }
 
     public static function findNearUsers($lat, $long, $rad) {
+        //TODO: use firebase queries to reduce load on server
         $near_users = [];
 
         $firebase = new FirebaseLib(Firebase::FDB_URL, $_ENV['FDB_TOKEN']);
