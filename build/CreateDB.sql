@@ -200,7 +200,5 @@ INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Health');
 INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Personal Care and Style');
 INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Philosophy');
 INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Religion');
-INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Finance and Bussiness');
 INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Politics');
-INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Plus-one');
 INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Harambe Software');
