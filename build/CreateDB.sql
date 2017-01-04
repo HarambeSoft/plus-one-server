@@ -165,3 +165,40 @@ INSERT INTO `poll_comment` (`id`, `comment_id`, `poll_id`) VALUES ('3', '3', '2'
 
 INSERT INTO `poll_option_comment` (`id`, `poll_option_id`, `comment_id`) VALUES ('2', '1', '4');
 INSERT INTO `poll_option_comment` (`id`, `poll_option_id`, `comment_id`) VALUES ('3', '1', '5');
+
+/* Add default categories */
+
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'General');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Animals');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Art');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Cars and motorcycles');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Celebrities');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Education');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Films');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Music');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Books');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Food and Drink');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Gardening');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Geek');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Beauty');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'History');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Holidays and Events');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Fashion');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Parenting');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Hobbies');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Science');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Nature');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Sports');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Technology');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Travel');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Relationship');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Literature');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'TV');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Economy');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Gaming');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Health');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Personal Care and Style');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Philosophy');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Religion');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Politics');
+INSERT INTO `category` (`id`, `name`) VALUES (NULL, 'Harambe Software');
