@@ -12,7 +12,7 @@ Route::get('/notify/{name}', function ($name) {
 });
 
 Route::get('/fdb', function () {
-    echo json_encode(Firebase::findNearUsers(39.7862387,30.5122116, 100));
+    echo json_encode(Firebase::findNearUsers(39.7862387,30.5122116, 100000000000000));
 });
 
 
