@@ -30,6 +30,7 @@ Route::group(['prefix' => 'v1', /*'middleware' => 'auth:api'*/], function () {
     Route::get('poll/{id}/comments',  'PollController@comments');
     Route::get('poll/{id}/options',   'PollController@options');
     Route::get('poll/globals',        'PollController@globals');
+    Route::post('poll/near',          'PollController@near');
     
     // OPTIONS
     Route::get('option/{option_id}', 'PollOptionController@option');

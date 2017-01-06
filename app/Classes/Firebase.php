@@ -44,7 +44,6 @@ class Firebase {
 
         $firebase = new FirebaseLib(Firebase::FDB_URL, $_ENV['FDB_TOKEN']);
         $locations = $firebase->get('/locations' /*, ['orderBy' => '"height"']*/);
-        echo $locations;
         $locations = json_decode($locations);
 
         $R = 6371;  // earth's mean radius, km

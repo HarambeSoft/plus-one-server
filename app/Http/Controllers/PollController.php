@@ -16,7 +16,6 @@ use App\Comment;
 use App\PollComment;
 
 
-
 class PollController extends Controller
 {
     function __construct() {
@@ -73,5 +72,47 @@ class PollController extends Controller
         $poll_comments_id = PollComment::where('poll_id', $id)->pluck('comment_id');
         $comments = Comment::whereIn('id', $poll_comments_id)->get();
         return response()->json($comments);
+    }
+
+    public function near(Request $request) {
+        $R = 6371;
+
+        $lat = $request->latitude;
+        $long = $request->longitude;
+        $rad = $request->diameter;
+
+        $maxLat = $lat + rad2deg($rad/$R);
+        $minLat = $lat - rad2deg($rad/$R);
+        $maxLong = $long + rad2deg(asin($rad/$R) / cos(deg2rad($lat)));
+        $minLong = $long - rad2deg(asin($rad/$R) / cos(deg2rad($lat)));
+
+        // id, name, password, email, xp, create_date, full_name, gender, country, city, profession
+        $sql = "Select user_id, category_id, id, question, poll_type, option_type, stat, duration, latitude, longitude, diameter
+                From (
+                Select *, acos(sin(:lat)*sin(radians(latitude)) + cos(:lat)*cos(radians(latitude))*cos(radians(longitude)-:lon)) * :R As D
+                From (
+                    Select *
+                    From poll
+                    Where latitude Between :minLat And :maxLat
+                      And longitude Between :minLon And :maxLon
+                ) As FirstCut
+            Where acos(sin(:lat)*sin(radians(latitude)) + cos(:lat)*cos(radians(latitude))*cos(radians(longitude)-:lon)) * :R < :rad
+            Order by D
+            ) As TotalCut";
+        $params = [
+            ':lat'    => deg2rad($lat),
+            ':lon'    => deg2rad($long),
+            ':minLat' => $minLat,
+            ':minLon' => $minLong,
+            ':maxLat' => $maxLat,
+            ':maxLon' => $maxLong,
+            ':rad'    => $rad,
+            ':R'      => $R,
+        ];
+        $sql = str_replace(array_keys($params), $params, $sql);
+        // FIXME: wtf is this shit
+        // dont use replace, use query builder or something safe
+
+        return DB::select($sql);
     }
 }

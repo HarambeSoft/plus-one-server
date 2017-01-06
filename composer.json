@@ -48,6 +48,6 @@
     },
     "config": {
         "preferred-install": "dist",
-	"cache-dir": "/home/isamertn/public_html/plusone/cache"
+	"cache-dir": "cache"
     }
 }
