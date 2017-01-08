@@ -19,16 +19,22 @@ class PollOptionController extends Controller
 {
 
     public function store($poll_id, Request $request) {
-        
+        $response = [];
         foreach ($request->all() as $item) {
             $poll_option = new PollOption;
             $poll_option->poll_id = $poll_id;
             $poll_option->content = $item['content'];
             
             if (!$poll_option->save())
-                return self::result(true, 'Error while adding option.');
+                return response()->json(['error' => true,
+                    'message' => "Option added successfully.",
+                    'response' => []]);
+
+            $response[] = $poll_option->id;
         }
-        return self::result(false, 'Option added successfully.');
+        return response()->json(['error' => false,
+            'message' => "Option added successfully.",
+            'response' => $response]);
     }
 
     public function option($id) {

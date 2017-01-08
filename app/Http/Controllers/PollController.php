@@ -112,6 +112,12 @@ class PollController extends Controller
         // FIXME: wtf is this shit
         // dont use replace, use query builder or something safe
 
-        return DB::select($sql);
+        $polls = [];
+        foreach (DB::select($sql) as $poll) {
+            $poll->options = PollOption::where('poll_id', $poll->id)->get();
+            $polls[] = $poll;
+        }
+
+        return $polls;
     }
 }
