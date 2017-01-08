@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 use App\User;
 use App\Poll;
+use App\PollOption;
+use App\UserPoll;
+use App\UserPollOption;
 
 class UserController extends Controller
 {
@@ -77,8 +80,30 @@ class UserController extends Controller
         $polls = Poll::where("user_id", $id)->get();
         return response()->json($polls);
     }
+
+    public function getVotesOfPoll($user_id, $poll_id) {
+        $user_poll = UserPoll::where([['user_id', '=', $user_id],
+                                      ['poll_id', '=', $poll_id]])->first();
+
+        if($user_poll != null) {
+            $user_poll_options = UserPollOption::where([['user_poll_id', '=', $user_poll->id]])->get();
+
+            $response = [];
+            foreach ($user_poll_options as $user_poll_option) {
+                $response[] = $user_poll_option->poll_option_id;
+            }
+
+            return response()->json(['error' => false,
+                                     'message' => "User voted to this poll",
+                                      'response' => $response]);
+        } else {
+            return response()->json(['error' => true,
+                'message' => "User did not vote to this poll",
+                'response' => []]);
+        }
+    }
     
     public function notifications($id) {
-        
+
     }
 }

@@ -120,6 +120,9 @@ CREATE TABLE `user_poll_option` (
     `user_poll_id` INT NOT NULL,
     `poll_option_id` INT NOT NULL,
 
+    `id` INT NOT NULL AUTO_INCREMENT,
+
+    PRIMARY KEY (`id`),
     FOREIGN KEY (`user_poll_id`) REFERENCES `user_poll`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`poll_option_id`) REFERENCES `poll_option`(`id`) ON DELETE CASCADE
 );

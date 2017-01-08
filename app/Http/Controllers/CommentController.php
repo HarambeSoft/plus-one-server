@@ -67,18 +67,30 @@ class CommentController extends Controller
     public function upvote($id) {
         $comment = Comment::find($id);
         $comment->up_vote = $comment->up_vote + 1;
-        if ($comment->save())
+        
+        if ($comment->save()) {
+            $notif_title = 'PlusOne';
+            $notif_body = Auth::guard('api')->user()->name . ' upvoted your comment.';
+            Firebase::sendNotificationToUser($comment->user_id, $notif_title, $notif_body);
+
             return self::result(false, 'Upvote succes.');
-        else
+        } else {
             return self::result(true, 'Cannot upvote.');
+        }
     }
     
     public function downvote($id) {
         $comment = Comment::find($id);
         $comment->down_vote = $comment->down_vote + 1;
-        if ($comment->save())
+
+        if ($comment->save()) {
+            $notif_title = 'PlusOne';
+            $notif_body = Auth::guard('api')->user()->name . ' downvoted your comment.';
+            Firebase::sendNotificationToUser($comment->user_id, $notif_title, $notif_body);
+
             return self::result(false, 'Downvote succes.');
-        else
+        } else {
             return self::result(true, 'Cannot downvote.');
+        }
     }
 }

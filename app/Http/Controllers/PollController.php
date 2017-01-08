@@ -39,20 +39,19 @@ class PollController extends Controller
         if (!$is_valid)
             return self::result(true, $validation_message);
 
+        $user_id = Auth::guard('api')->user()->id;
+
         $poll = new Poll($request->all());
-        $poll->user_id = Auth::guard('api')->user()->id;
+        $poll->user_id = $user_id;
         if ($poll->save()) {
             // Send notification to near users
             $data = ['poll_id' => $poll->id];
             $near_users = Firebase::findNearUsers($request->latitude, $request->longitude, $request->diameter);
 
             foreach ($near_users as $near_user) {
-                //FIXME: send notification directly to user id (also needs work on android side)
                 $id = $near_user;
-                $user_name = User::find($id)->name;
-                Firebase::sendNotificationToUser($user_name, "New poll near you", "Maybe you want to answer?", $data);
-                //TODO: add data to notification that enables to open poll when click on notification
-                //FIXME: dont send notification to poll-creator
+                if ($near_user != $user_id)
+                    Firebase::sendNotificationToUser($id, "New poll near you", "Maybe you want to answer?", $data);
             }
 
             return response()->json(['error' => false, 
